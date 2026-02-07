@@ -3,7 +3,7 @@
   <Name>EmbyServer</Name>
   <Repository>emby/embyserver:latest</Repository>
   <Registry>https://hub.docker.com/r/emby/embyserver/</Registry>
-  <Network>bridge</Network>
+  <Network>host</Network>
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
@@ -31,7 +31,6 @@
   <DonateLink/>
   <Requires/>
   <Config Name="WebUI HTTP Port" Target="8096" Default="8096" Mode="tcp" Description="HTTP port for Emby web interface" Type="Port" Display="always" Required="true" Mask="false">8096</Config>
-  <Config Name="HTTPS Port" Target="8920" Default="8920" Mode="tcp" Description="HTTPS port for secure connections" Type="Port" Display="always" Required="false" Mask="false">8920</Config>
   <Config Name="AppData Config Path" Target="/config" Default="/mnt/user/appdata/emby" Mode="rw" Description="Configuration and database storage" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/emby</Config>
   <Config Name="Media Path" Target="/mnt" Default="/mnt/user/media" Mode="rw" Description="Location of your media files" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/media</Config>
   <Config Name="PUID" Target="UID" Default="99" Mode="" Description="User ID for file permissions" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
