@@ -1,55 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Container>
-  <Beta>False</Beta>
-  <Category>MediaServer:Video MediaServer:Music MediaServer:Photos</Category>
+<Container version="2">
   <Name>EmbyServer</Name>
-  <Description>
-    Emby Server is a home media server built on top of other popular open source technologies such as Service Stack, jQuery, jQuery mobile, and Mono. Bringing together movies, music, television and more in one dazzling interface.[br][br]
-    [b][span style='color: #E80000;']Directories:[/span][/b][br]
-    [b]/config[/b] : this path is used to store Emby's configuration.[br]
-    [b]/mnt[/b] : this path is used to add library locations to Emby.[br]
-  </Description>
-  <Registry>https://registry.hub.docker.com/u/emby/embyserver/</Registry>
   <Repository>emby/embyserver:latest</Repository>
-  <BindTime>true</BindTime>
+  <Registry>https://hub.docker.com/r/emby/embyserver/</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Environment>
-    <Variable>
-      <Name>UID</Name>
-      <Value>2</Value>
-    </Variable>
-    <Variable>
-      <Name>GID</Name>
-      <Value>2</Value>
-    </Variable>
-    <Variable>
-      <Name>GIDLIST</Name>
-      <Value>2</Value>
-    </Variable>
-  </Environment>
-  <Networking>
-    <Mode>host</Mode>
-    <Publish>
-      <Port>
-        <HostPort>8096</HostPort>
-        <ContainerPort>8096</ContainerPort>
-        <Protocol>tcp</Protocol>
-      </Port>
-    </Publish>
-  </Networking>
-  <Data>
-    <Volume>
-      <HostDir>/mnt/cache/appdata/emby/</HostDir>
-      <ContainerDir>/config</ContainerDir>
-      <Mode>rw</Mode>
-    </Volume>
-    <Volume>
-      <HostDir>/mnt</HostDir>
-      <ContainerDir>/mnt</ContainerDir>
-      <Mode>rw</Mode>
-    </Volume>
-  </Data>
-  <WebUI>http://[IP]:[PORT:8096]/</WebUI>
-  <Banner>https://raw.githubusercontent.com/MediaBrowser/Emby.Resources/master/images/Logos/logo.png</Banner>
+  <Support>https://emby.media/community/</Support>
+  <Project>https://emby.media/</Project>
+  <Overview>Emby Server is a home media server built on top of popular open source technologies. It brings together your movies, music, TV shows, photos, and more in one beautiful interface accessible from anywhere.[br][br]
+    [b][u]Path Configuration:[/u][/b][br]
+    [b]/config[/b] - Stores Emby configuration, databases, and metadata[br]
+    [b]/media[/b] - Your media library location (movies, TV, music, etc.)[br][br]
+    [b][u]Default Credentials:[/u][/b][br]
+    Set up admin account on first run via WebUI[br][br]
+    [b][u]Hardware Acceleration:[/u][/b][br]
+    [b]Intel iGPU/ARC:[/b] Click "Add another Path, Port, Variable, Label or Device" at the bottom, select Device, and add /dev/dri for both container and host path[br]
+    [b]NVIDIA GPU:[/b] Add --runtime=nvidia to the "Extra Parameters" field[br]
+    After adding GPU access, enable hardware acceleration in Emby settings under Transcoding
+  </Overview>
+  <Category>MediaServer:Video MediaServer:Music MediaServer:Photos MediaApp:Other</Category>
+  <WebUI>http://[IP]:[PORT:8096]/web/index.html</WebUI>
+  <TemplateURL>false</TemplateURL>
   <Icon>https://raw.githubusercontent.com/MediaBrowser/Emby.Resources/master/images/Logos/logoicon.png</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="WebUI HTTP Port" Target="8096" Default="8096" Mode="tcp" Description="HTTP port for Emby web interface" Type="Port" Display="always" Required="true" Mask="false">8096</Config>
+  <Config Name="HTTPS Port" Target="8920" Default="8920" Mode="tcp" Description="HTTPS port for secure connections" Type="Port" Display="always" Required="false" Mask="false">8920</Config>
+  <Config Name="AppData Config Path" Target="/config" Default="/mnt/user/appdata/emby" Mode="rw" Description="Configuration and database storage" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/emby</Config>
+  <Config Name="Media Path" Target="/mnt" Default="/mnt/user/media" Mode="rw" Description="Location of your media files" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/media</Config>
+  <Config Name="PUID" Target="UID" Default="99" Mode="" Description="User ID for file permissions" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
+  <Config Name="PGID" Target="GID" Default="100" Mode="" Description="Group ID for file permissions" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
+  <Config Name="GIDLIST" Target="GIDLIST" Default="100" Mode="" Description="Comma-separated list of additional group IDs" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
 </Container>
